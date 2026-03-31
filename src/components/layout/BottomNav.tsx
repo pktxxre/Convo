@@ -10,7 +10,7 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-20 bg-white border-t border-[#DBDBDB]">
-      <div className="max-w-lg mx-auto flex items-center justify-around h-[52px] px-4">
+      <div className="max-w-lg mx-auto flex items-center justify-around h-[52px] px-2">
 
         {/* Home */}
         <Link href="/feed" aria-label="Home" className="flex items-center justify-center w-12 h-12">
@@ -38,13 +38,46 @@ export default function BottomNav() {
           </svg>
         </Link>
 
-        {/* Compose */}
-        <Link href="/compose" aria-label="New post" className="flex items-center justify-center">
-          <div className="w-[42px] h-[42px] bg-indigo-600 rounded-full flex items-center justify-center shadow-sm active:scale-95 transition-transform">
-            <svg className="w-[18px] h-[18px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+        {/* Spin Wheel — centre hero button */}
+        <Link href="/spin" aria-label="Spin the wheel" className="flex items-center justify-center">
+          <div
+            className={[
+              'w-[46px] h-[46px] rounded-full flex items-center justify-center shadow-md transition-transform active:scale-90',
+              active('/spin')
+                ? 'bg-indigo-700 shadow-indigo-300'
+                : 'bg-indigo-600',
+            ].join(' ')}
+          >
+            {/* Wheel / spin icon */}
+            <svg className="w-[22px] h-[22px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+              {/* Outer circle */}
+              <circle cx="12" cy="12" r="9" />
+              {/* Spokes */}
+              <line x1="12" y1="3"  x2="12" y2="7"  />
+              <line x1="12" y1="17" x2="12" y2="21" />
+              <line x1="3"  y1="12" x2="7"  y2="12" />
+              <line x1="17" y1="12" x2="21" y2="12" />
+              <line x1="5.6"  y1="5.6"  x2="8.5"  y2="8.5"  />
+              <line x1="15.5" y1="15.5" x2="18.4" y2="18.4" />
+              <line x1="18.4" y1="5.6"  x2="15.5" y2="8.5"  />
+              <line x1="8.5"  y1="15.5" x2="5.6"  y2="18.4" />
+              {/* Hub dot */}
+              <circle cx="12" cy="12" r="2" fill="white" stroke="none" />
             </svg>
           </div>
+        </Link>
+
+        {/* Compose */}
+        <Link href="/compose" aria-label="New post" className="flex items-center justify-center w-12 h-12">
+          <svg
+            className={`w-[24px] h-[24px] transition-colors ${active('/compose') ? 'text-[#1a1a1a]' : 'text-[#C7C7C7]'}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={active('/compose') ? 2.2 : 1.8}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
         </Link>
 
         {/* Profile */}

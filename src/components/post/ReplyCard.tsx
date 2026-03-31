@@ -12,12 +12,12 @@ export default function ReplyCard({ reply }: ReplyCardProps) {
       <Avatar name={reply.authorName} size="sm" />
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-1.5 flex-wrap">
-          <span className="text-sm font-semibold text-gray-900">{reply.authorName}</span>
-          <span className="text-xs text-gray-400">{reply.authorMajor}</span>
-          <span className="text-gray-300">·</span>
-          <span className="text-xs text-gray-400">{formatRelativeTime(reply.createdAt)}</span>
+          <span className="text-sm font-semibold text-[#1a1a1a] dark:text-[#F5F5F5]">{reply.authorName}</span>
+          <span className="text-xs text-[#A8A8A8] dark:text-[#636366]">{reply.authorMajor}</span>
+          <span className="text-[#DBDBDB] dark:text-[#38383A]">·</span>
+          <span className="text-xs text-[#A8A8A8] dark:text-[#636366]">{formatRelativeTime(reply.createdAt)}</span>
         </div>
-        <p className="text-sm text-gray-700 mt-1 leading-relaxed">{reply.body}</p>
+        <p className="text-sm text-[#1a1a1a] dark:text-[#E5E5E5] mt-1 leading-relaxed">{reply.body}</p>
       </div>
     </div>
   );

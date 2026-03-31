@@ -9,13 +9,13 @@ export default function BottomNav() {
     href === '/feed' ? pathname === '/feed' : pathname.startsWith(href);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-20 bg-white border-t border-[#DBDBDB]">
+    <nav className="fixed bottom-0 left-0 right-0 z-20 bg-white dark:bg-[#1C1C1E] border-t border-[#DBDBDB] dark:border-[#38383A]">
       <div className="max-w-lg mx-auto flex items-center justify-around h-[52px] px-2">
 
         {/* Home */}
         <Link href="/feed" aria-label="Home" className="flex items-center justify-center w-12 h-12">
           <svg
-            className={`w-[26px] h-[26px] transition-colors ${active('/feed') ? 'text-[#1a1a1a]' : 'text-[#C7C7C7]'}`}
+            className={`w-[26px] h-[26px] transition-colors ${active('/feed') ? 'text-[#1a1a1a] dark:text-[#F5F5F5]' : 'text-[#C7C7C7] dark:text-[#48484A]'}`}
             fill={active('/feed') ? 'currentColor' : 'none'}
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -28,7 +28,7 @@ export default function BottomNav() {
         {/* Topics */}
         <Link href="/topics" aria-label="Topics" className="flex items-center justify-center w-12 h-12">
           <svg
-            className={`w-[24px] h-[24px] transition-colors ${active('/topics') ? 'text-[#1a1a1a]' : 'text-[#C7C7C7]'}`}
+            className={`w-[24px] h-[24px] transition-colors ${active('/topics') ? 'text-[#1a1a1a] dark:text-[#F5F5F5]' : 'text-[#C7C7C7] dark:text-[#48484A]'}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -38,21 +38,16 @@ export default function BottomNav() {
           </svg>
         </Link>
 
-        {/* Spin Wheel — centre hero button */}
+        {/* Spin Wheel */}
         <Link href="/spin" aria-label="Spin the wheel" className="flex items-center justify-center">
           <div
             className={[
               'w-[46px] h-[46px] rounded-full flex items-center justify-center shadow-md transition-transform active:scale-90',
-              active('/spin')
-                ? 'bg-indigo-700 shadow-indigo-300'
-                : 'bg-indigo-600',
+              active('/spin') ? 'bg-indigo-700' : 'bg-indigo-600',
             ].join(' ')}
           >
-            {/* Wheel / spin icon */}
             <svg className="w-[22px] h-[22px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-              {/* Outer circle */}
               <circle cx="12" cy="12" r="9" />
-              {/* Spokes */}
               <line x1="12" y1="3"  x2="12" y2="7"  />
               <line x1="12" y1="17" x2="12" y2="21" />
               <line x1="3"  y1="12" x2="7"  y2="12" />
@@ -61,7 +56,6 @@ export default function BottomNav() {
               <line x1="15.5" y1="15.5" x2="18.4" y2="18.4" />
               <line x1="18.4" y1="5.6"  x2="15.5" y2="8.5"  />
               <line x1="8.5"  y1="15.5" x2="5.6"  y2="18.4" />
-              {/* Hub dot */}
               <circle cx="12" cy="12" r="2" fill="white" stroke="none" />
             </svg>
           </div>
@@ -70,7 +64,7 @@ export default function BottomNav() {
         {/* Compose */}
         <Link href="/compose" aria-label="New post" className="flex items-center justify-center w-12 h-12">
           <svg
-            className={`w-[24px] h-[24px] transition-colors ${active('/compose') ? 'text-[#1a1a1a]' : 'text-[#C7C7C7]'}`}
+            className={`w-[24px] h-[24px] transition-colors ${active('/compose') ? 'text-[#1a1a1a] dark:text-[#F5F5F5]' : 'text-[#C7C7C7] dark:text-[#48484A]'}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -83,7 +77,7 @@ export default function BottomNav() {
         {/* Profile */}
         <Link href="/profile" aria-label="Profile" className="flex items-center justify-center w-12 h-12">
           <svg
-            className={`w-[26px] h-[26px] transition-colors ${active('/profile') ? 'text-[#1a1a1a]' : 'text-[#C7C7C7]'}`}
+            className={`w-[26px] h-[26px] transition-colors ${active('/profile') ? 'text-[#1a1a1a] dark:text-[#F5F5F5]' : 'text-[#C7C7C7] dark:text-[#48484A]'}`}
             fill={active('/profile') ? 'currentColor' : 'none'}
             viewBox="0 0 24 24"
             stroke="currentColor"

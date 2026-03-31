@@ -69,7 +69,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       id: `user_${Date.now()}`,
       name,
       email: email.toLowerCase(),
-      campusId: '',
+      campusId: 'uw',        // always UW — gated by @uw.edu at the auth step
       major: '',
       year: 'Freshman',
       interests: [],

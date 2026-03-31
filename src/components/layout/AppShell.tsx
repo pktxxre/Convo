@@ -21,7 +21,7 @@ export default function AppShell({
 }: AppShellProps) {
   return (
     <AuthGate>
-      <div className="min-h-screen bg-gray-50 flex flex-col max-w-lg mx-auto">
+      <div className="min-h-screen bg-[#FAFAFA] dark:bg-black flex flex-col max-w-lg mx-auto">
         <TopBar
           title={title}
           showBack={showBack}

@@ -3,14 +3,36 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Instagram/Substack-inspired palette */
+    --color-bg: #FAFAFA;
+    --color-surface: #FFFFFF;
+    --color-border: #DBDBDB;
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #737373;
+    --color-text-muted: #A8A8A8;
+  }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-bg);
   }
 
   * {
-    /* Remove tap highlight on mobile */
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Smooth scrolling everywhere */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

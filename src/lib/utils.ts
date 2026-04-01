@@ -41,6 +41,25 @@ export function getAvatarColor(name: string): string {
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
+// Stable pseudo-random member count (80–699) from major name
+export function majorMemberCount(name: string): number {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = Math.imul(31, h) + name.charCodeAt(i) | 0;
+  return 80 + (Math.abs(h) % 620);
+}
+
+// Active users = roughly 4–12% of members, seeded differently so it varies independently
+export function majorActiveUsers(name: string): number {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = Math.imul(17, h) + name.charCodeAt(i) | 0;
+  const members = majorMemberCount(name);
+  return Math.max(1, Math.round(members * (0.04 + (Math.abs(h) % 9) / 100)));
+}
+
+export function majorSlug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 export function getInitials(name: string): string {
   const parts = name.trim().split(/\s+/);
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();

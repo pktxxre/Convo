@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from '@/context/SessionContext';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { VoteProvider } from '@/context/VoteContext';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -27,7 +28,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-sans antialiased bg-[#FAFAFA] dark:bg-black text-[#1a1a1a] dark:text-[#F5F5F5]">
         <ThemeProvider>
-          <SessionProvider>{children}</SessionProvider>
+          <SessionProvider>
+            <VoteProvider>{children}</VoteProvider>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -268,6 +268,8 @@ export const SAMPLE_POSTS: Post[] = [
     title: 'Best resources for learning transformers from scratch?',
     body: "I've been going through Andrej Karpathy's videos but looking for more structured material. Has anyone gone through the Hugging Face course or the fast.ai deep learning track? Would love to compare notes on what actually clicked.",
     replyCount: 8,
+    upvotes: 42,
+    downvotes: 2,
     createdAt: '2026-03-30T10:30:00Z',
   },
   {
@@ -279,6 +281,8 @@ export const SAMPLE_POSTS: Post[] = [
     type: 'short',
     body: 'Looking for a study group for finals week! CSE 373 or STAT 390 focused. DM if interested 📚',
     replyCount: 5,
+    upvotes: 18,
+    downvotes: 1,
     createdAt: '2026-03-30T09:15:00Z',
   },
   {
@@ -290,6 +294,8 @@ export const SAMPLE_POSTS: Post[] = [
     type: 'short',
     body: "Husky Career Fair is this Thursday 2–6pm in the HUB. Over 80 companies including some solid Pacific Northwest startups. Don't sleep on it!",
     replyCount: 12,
+    upvotes: 67,
+    downvotes: 3,
     createdAt: '2026-03-30T08:00:00Z',
   },
   {
@@ -301,6 +307,8 @@ export const SAMPLE_POSTS: Post[] = [
     type: 'short',
     body: 'Anyone know of off-campus 2BR apartments available for fall near the U District? Budget ~$1,100/mo per person. Preferably walkable to Padelford.',
     replyCount: 3,
+    upvotes: 12,
+    downvotes: 4,
     createdAt: '2026-03-29T22:45:00Z',
   },
   {
@@ -313,6 +321,8 @@ export const SAMPLE_POSTS: Post[] = [
     title: 'PSYCH 355 (Cognitive Psychology) – honest review',
     body: "Just finished the midterm and wanted to give a real take. Prof. Markman is brilliant but the lectures move FAST. Attend every class, the slides aren't enough on their own. Weekly response papers are the most work but genuinely help you retain things. Overall 8/10, would recommend.",
     replyCount: 6,
+    upvotes: 38,
+    downvotes: 2,
     createdAt: '2026-03-29T20:00:00Z',
   },
   {
@@ -325,6 +335,8 @@ export const SAMPLE_POSTS: Post[] = [
     title: 'How do you actually unwind after a brutal finals week?',
     body: "Genuinely asking – I always tell myself I'll relax and then immediately spiral into worrying about the next thing. What actually works for you?",
     replyCount: 14,
+    upvotes: 55,
+    downvotes: 5,
     createdAt: '2026-03-29T18:30:00Z',
   },
   {
@@ -337,6 +349,8 @@ export const SAMPLE_POSTS: Post[] = [
     title: 'My summer internship application timeline (what actually worked)',
     body: "Applied to ~40 companies starting in September. Got 8 phone screens, 4 final rounds, 2 offers. Here's what I learned: 1) Referrals beat cold apps 10x. 2) FAANG-style prep is mostly LeetCode but smaller companies care more about system design. 3) Apply earlier than you think you need to.",
     replyCount: 21,
+    upvotes: 89,
+    downvotes: 4,
     createdAt: '2026-03-29T14:00:00Z',
   },
   {
@@ -348,6 +362,8 @@ export const SAMPLE_POSTS: Post[] = [
     type: 'short',
     body: 'Thai place on the Ave has a student discount on Tuesdays – 15% off with your Husky Card. The pad see ew is legit 🙌',
     replyCount: 4,
+    upvotes: 31,
+    downvotes: 1,
     createdAt: '2026-03-29T12:00:00Z',
   },
   {
@@ -360,6 +376,8 @@ export const SAMPLE_POSTS: Post[] = [
     title: 'Undergrad research positions at UW – how competitive are they really?',
     body: "I've been emailing professors for two semesters and finally got a position in Dr. Lee's cognition lab. My honest take: cold emails work if they're specific. Read one of their recent papers, mention it. Offer to volunteer for a quarter first. Persistence matters more than credentials.",
     replyCount: 9,
+    upvotes: 47,
+    downvotes: 3,
     createdAt: '2026-03-28T11:00:00Z',
   },
   {
@@ -371,6 +389,8 @@ export const SAMPLE_POSTS: Post[] = [
     type: 'short',
     body: "Intramural basketball signups are open until Friday at the IMA! We need two more players for a full squad. No experience needed, just good vibes 🏀",
     replyCount: 7,
+    upvotes: 22,
+    downvotes: 2,
     createdAt: '2026-03-28T09:30:00Z',
   },
   {
@@ -383,6 +403,8 @@ export const SAMPLE_POSTS: Post[] = [
     title: 'Non-CSE students learning to code – where are you now?',
     body: "I'm a Foster student who started learning Python last summer. Just shipped my first small web scraper. Curious how far others have gotten coming from a non-technical background.",
     replyCount: 11,
+    upvotes: 34,
+    downvotes: 6,
     createdAt: '2026-03-27T16:00:00Z',
   },
   {
@@ -394,6 +416,8 @@ export const SAMPLE_POSTS: Post[] = [
     type: 'short',
     body: "Anyone else use the Pomodoro technique for long study sessions in Suzzallo? Trying 25/5 but wondering if 50/10 works better for deep work.",
     replyCount: 8,
+    upvotes: 19,
+    downvotes: 3,
     createdAt: '2026-03-27T14:30:00Z',
   },
 ];
@@ -520,6 +544,10 @@ export function getTopicById(id: string): Topic | undefined {
 
 export function getCampusById(id: string): Campus | undefined {
   return CAMPUSES.find(c => c.id === id);
+}
+
+export function getPostsByMajor(major: string): Post[] {
+  return SAMPLE_POSTS.filter(p => p.authorMajor === major);
 }
 
 export function detectCampusByEmail(email: string): Campus | undefined {

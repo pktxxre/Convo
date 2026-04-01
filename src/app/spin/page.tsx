@@ -102,7 +102,7 @@ const SEGMENT_COLORS = [
 const CX = 200;
 const CY = 200;
 const R = 185;
-const R_TEXT = 115;
+const R_TEXT = 85; // start at mid-slice so text reads through the center
 
 export default function SpinPage() {
   const router = useRouter();
@@ -123,7 +123,7 @@ export default function SpinPage() {
   function getLabelTransform(index: number): string {
     const mid = (index + 0.5) * segAngle - 90;
     const rad = mid * (Math.PI / 180);
-    return `translate(${CX + R_TEXT * Math.cos(rad)},${CY + R_TEXT * Math.sin(rad)}) rotate(${mid + 90})`;
+    return `translate(${CX + R_TEXT * Math.cos(rad)},${CY + R_TEXT * Math.sin(rad)}) rotate(${mid})`;
   }
 
   function spin() {
@@ -176,7 +176,7 @@ export default function SpinPage() {
                 />
                 <text
                   transform={getLabelTransform(i)}
-                  textAnchor="middle"
+                  textAnchor="start"
                   dominantBaseline="middle"
                   fill="white"
                   fontSize="5"

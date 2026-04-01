@@ -31,6 +31,8 @@ export interface Post {
   title?: string;
   body: string;
   replyCount: number;
+  upvotes: number;
+  downvotes: number;
   createdAt: string;
 }
 

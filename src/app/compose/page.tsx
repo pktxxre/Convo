@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import AppShell from '@/components/layout/AppShell';
-import { useSession } from '@/context/SessionContext';
-import { TOPICS } from '@/lib/filler';
+import { MAJORS } from '@/lib/filler';
 import type { PostType } from '@/types';
 
 const POST_TYPES: { value: PostType; label: string; description: string; maxChars?: number }[] = [
@@ -13,35 +12,31 @@ const POST_TYPES: { value: PostType; label: string; description: string; maxChar
   { value: 'prompt', label: 'Prompt', description: 'Open question for discussion' },
 ];
 
-const MAX_POSTS_PER_DAY = 5;
-
 export default function ComposePage() {
-  const { user, bumpPostsToday } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [postType, setPostType] = useState<PostType>('short');
-  const [topicId, setTopicId] = useState('');
+  const presetMajor = searchParams.get('major') ?? '';
+  const presetType = (searchParams.get('type') ?? 'short') as PostType;
+
+  const [postType, setPostType] = useState<PostType>(presetType);
+  const [targetMajor, setTargetMajor] = useState(presetMajor);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
 
-  const postsLeft = MAX_POSTS_PER_DAY - (user?.postsToday ?? 0);
-  const atLimit = postsLeft <= 0;
   const maxChars = postType === 'short' ? 280 : undefined;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
-    if (atLimit) { setError("You've reached your 5 posts/day limit. Come back tomorrow!"); return; }
-    if (!topicId) { setError('Please select a topic.'); return; }
     if (!body.trim()) { setError('Post body cannot be empty.'); return; }
     if (maxChars && body.length > maxChars) { setError(`Short posts are limited to ${maxChars} characters.`); return; }
 
     setSubmitting(true);
     await new Promise(r => setTimeout(r, 800));
-    bumpPostsToday();
-    router.replace('/feed');
+    router.replace(targetMajor ? `/majors/${encodeURIComponent(targetMajor.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}` : '/feed');
   }
 
   const inputClass = "w-full px-4 py-3 rounded-xl border border-[#DBDBDB] dark:border-[#38383A] bg-white dark:bg-[#2C2C2E] text-[#1a1a1a] dark:text-[#F5F5F5] text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder:text-[#A8A8A8] dark:placeholder:text-[#636366]";
@@ -49,23 +44,6 @@ export default function ComposePage() {
   return (
     <AppShell title="New Post" showBack hideNav>
       <form onSubmit={handleSubmit} className="px-4 pt-4 pb-8 space-y-5">
-
-        {/* Daily limit */}
-        <div className={[
-          'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium',
-          atLimit
-            ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-            : postsLeft <= 2
-              ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
-              : 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400',
-        ].join(' ')}>
-          <span>{atLimit ? '🚫' : '✏️'}</span>
-          <span>
-            {atLimit
-              ? "You've used all 5 posts today."
-              : `${postsLeft} of ${MAX_POSTS_PER_DAY} posts remaining today`}
-          </span>
-        </div>
 
         {/* Post type */}
         <div>
@@ -90,21 +68,24 @@ export default function ComposePage() {
           </div>
         </div>
 
-        {/* Topic */}
+        {/* Post to (major) */}
         <div>
           <label className="block text-sm font-medium text-[#1a1a1a] dark:text-[#F5F5F5] mb-1.5">
-            Topic <span className="text-red-400">*</span>
+            Post to
           </label>
           <select
-            value={topicId}
-            onChange={e => setTopicId(e.target.value)}
+            value={targetMajor}
+            onChange={e => setTargetMajor(e.target.value)}
             className={inputClass}
           >
-            <option value="">Choose a topic…</option>
-            {TOPICS.map(topic => (
-              <option key={topic.id} value={topic.id}>{topic.icon} {topic.name}</option>
+            <option value="">All majors</option>
+            {MAJORS.map(m => (
+              <option key={m} value={m}>{m}</option>
             ))}
           </select>
+          <p className="text-[11px] text-[#A8A8A8] dark:text-[#636366] mt-1.5 px-1">
+            {targetMajor ? `Only visible to ${targetMajor} Huskies` : 'Visible to all Huskies on campus'}
+          </p>
         </div>
 
         {/* Title */}
@@ -154,7 +135,7 @@ export default function ComposePage() {
 
         <button
           type="submit"
-          disabled={submitting || atLimit || !body.trim() || !topicId}
+          disabled={submitting || !body.trim()}
           className="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-base disabled:bg-indigo-300 dark:disabled:bg-indigo-900 disabled:cursor-not-allowed hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
         >
           {submitting && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
